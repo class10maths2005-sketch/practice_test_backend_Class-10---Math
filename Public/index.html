@@ -153,23 +153,22 @@
       <button id="backBtn" class="back-btn" onclick="resetAll()">Back</button>
     </div>
 
-<div id="controls">
-  <label for="levelSelect">Level / Years:</label>
-  <select id="levelSelect">
-    <option value="">Select Level / Years</option>
-  </select>
+    <div id="controls">
+      <label for="levelSelect">Level / Years:</label>
+      <select id="levelSelect">
+        <option value="">Select Level / Years</option>
+      </select>
 
-  <label for="chapterSelect">Chapter:</label>
-  <select id="chapterSelect" disabled>
-    <option value="">Select Chapter</option>
-  </select>
+      <label for="chapterSelect">Chapter:</label>
+      <select id="chapterSelect" disabled>
+        <option value="">Select Chapter</option>
+      </select>
 
-  <label id="topicLabel" for="itemSelect">Topic / Year:</label>
-  <select id="itemSelect" disabled>
-    <option value="">Select Topic / Year</option>
-  </select>
-</div>
-
+      <label id="topicLabel" for="itemSelect">Topic / Year:</label>
+      <select id="itemSelect" disabled>
+        <option value="">Select Topic / Year</option>
+      </select>
+    </div>
 
     <iframe id="viewer" src=""></iframe>
   </div>
@@ -229,10 +228,9 @@
       }
     }, 5000);
 
-    // === Fixed Catalog JSON with unique keys ===
-   // === Fixed Catalog JSON with unique keys ===
-const catalog = {
-  "Topic wise mcq (basic)Coming Soon": {
+    // Catalog JSON
+    const catalog = {
+        "Topic wise mcq (basic)Coming Soon": {
             "Chapter 1 - Coming Soon": {
               "Coming Soon for tryl i make this topic very long for batter isplay i need too check weather is wrok properly or not fr samll ppoc its look ok now": "https://gten-educational-patform.github.io/Class-12/new 7.html",
               "Coming Soon": "https://gten-educational-platform.github.io/Class-11-Physics/units-measurements/basic/significant-figures.html",
@@ -308,8 +306,6 @@ const catalog = {
   }
 };
 
-
-
     const levelSelect   = document.getElementById('levelSelect');
     const chapterSelect = document.getElementById('chapterSelect');
     const itemSelect    = document.getElementById('itemSelect');
@@ -317,7 +313,6 @@ const catalog = {
     const viewer        = document.getElementById('viewer');
     const controls      = document.getElementById('controls');
     const headerBar     = document.getElementById('headerBar');
-    const topicRow      = document.getElementById('topicRow');
 
     function resetSelect(selectEl, placeholderText, disable = false) {
       selectEl.innerHTML = `<option value="">${placeholderText}</option>`;
@@ -366,46 +361,34 @@ const catalog = {
       if (window.innerWidth > 600) {
         headerBar.appendChild(inlineDiv);
       } else {
-        topicRow.appendChild(topicLabel);
-        topicRow.appendChild(itemSelect);
+        controls.appendChild(topicLabel);
+        controls.appendChild(itemSelect);
       }
     }
 
-  function resetAll() {
-  viewer.src = '';
-  viewer.style.height = "450px";
-
-  // Reset all selects
-  resetSelect(levelSelect, 'Select Level / Years', false);
-  resetSelect(chapterSelect, 'Select Chapter', true);
-  resetSelect(itemSelect, 'Select Topic / Year', true);
-
-  // Refill Levels so user can pick again
-  fillSelect(levelSelect, getKeys(catalog));
-
-  // Show dropdown controls again
-  controls.classList.remove('hidden');
-
-  // Move topic controls back below
-  topicRow.appendChild(topicLabel);
-  topicRow.appendChild(itemSelect);
-
-  // Remove inline dropdown (if exists)
-  const inline = headerBar.querySelector('.inline-topic');
-  if (inline) inline.remove();
-}
-
+    function resetAll() {
+      viewer.src = '';
+      viewer.style.height = "450px";
+      resetSelect(levelSelect, 'Select Level / Years', false);
+      resetSelect(chapterSelect, 'Select Chapter', true);
+      resetSelect(itemSelect, 'Select Topic / Year', true);
+      fillSelect(levelSelect, getKeys(catalog));
+      controls.classList.remove('hidden');
+      const inline = headerBar.querySelector('.inline-topic');
+      if (inline) inline.remove();
+      controls.appendChild(topicLabel);
+      controls.appendChild(itemSelect);
+    }
 
     window.addEventListener('resize', () => {
       const inline = headerBar.querySelector('.inline-topic');
       if (inline && window.innerWidth <= 600) {
-        topicRow.appendChild(topicLabel);
-        topicRow.appendChild(itemSelect);
+        controls.appendChild(topicLabel);
+        controls.appendChild(itemSelect);
         inline.remove();
       }
     });
 
-    // Fill levels dropdown
     fillSelect(levelSelect, getKeys(catalog));
   </script>
 </body>
